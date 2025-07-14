@@ -30,7 +30,9 @@ export const OrderCardUI: FC<OrderCardUIProps> = memo(
         {orderInfo.name}
       </h4>
       {location.pathname === '/profile/orders' && (
-        <OrderStatus status={orderInfo.status} />
+        <OrderStatus
+          status={orderInfo.status as 'pending' | 'done' | 'created'}
+        />
       )}
       <div className={`pt-6 ${styles.order_content}`}>
         <ul className={styles.ingredients}>

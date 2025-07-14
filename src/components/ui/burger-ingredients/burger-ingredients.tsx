@@ -5,6 +5,13 @@ import styles from './burger-ingredients.module.css';
 import { BurgerIngredientsUIProps } from './type';
 import { IngredientsCategory } from '@components';
 
+/**
+ * UI компонент списка ингредиентов бургера
+ * Отвечает за отображение:
+ * - Вкладок для переключения между категориями ингредиентов
+ * - Списка ингредиентов, сгруппированных по категориям
+ * Использует memo для оптимизации перерендеров
+ */
 export const BurgerIngredientsUI: FC<BurgerIngredientsUIProps> = memo(
   ({
     currentTab,
@@ -21,6 +28,7 @@ export const BurgerIngredientsUI: FC<BurgerIngredientsUIProps> = memo(
   }) => (
     <>
       <section className={styles.burger_ingredients}>
+        {/* Навигация по категориям ингредиентов */}
         <nav>
           <ul className={styles.menu}>
             <Tab value='bun' active={currentTab === 'bun'} onClick={onTabClick}>
@@ -42,6 +50,8 @@ export const BurgerIngredientsUI: FC<BurgerIngredientsUIProps> = memo(
             </Tab>
           </ul>
         </nav>
+
+        {/* Содержимое - списки ингредиентов по категориям */}
         <div className={styles.content}>
           <IngredientsCategory
             title='Булки'

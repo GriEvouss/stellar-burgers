@@ -10,6 +10,15 @@ import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorElement, Modal } from '@components';
 import { Preloader, OrderDetailsUI } from '@ui';
 
+/**
+ * UI компонент конструктора бургера
+ * Отвечает за отображение всех элементов конструктора:
+ * - Верхняя булка
+ * - Список ингредиентов
+ * - Нижняя булка
+ * - Общая стоимость и кнопка оформления заказа
+ * - Модальные окна для отображения процесса оформления заказа
+ */
 export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
   constructorItems,
   orderRequest,
@@ -18,9 +27,10 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
   onOrderClick,
   closeOrderModal
 }) => (
-  <section className={styles.burger_constructor}>
+  <section className={styles.burger_constructor} data-cy='constructor'>
+    {/* Верхняя булка */}
     {constructorItems.bun ? (
-      <div className={`${styles.element} mb-4 mr-4`}>
+      <div className={`${styles.element} mb-4 mr-4`} data-cy='constructor-bun'>
         <ConstructorElement
           type='top'
           isLocked
@@ -36,6 +46,8 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
         Выберите булки
       </div>
     )}
+
+    {/* Список ингредиентов */}
     <ul className={styles.elements}>
       {constructorItems.ingredients.length > 0 ? (
         constructorItems.ingredients.map(
@@ -56,6 +68,8 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
         </div>
       )}
     </ul>
+
+    {/* Нижняя булка */}
     {constructorItems.bun ? (
       <div className={`${styles.element} mt-4 mr-4`}>
         <ConstructorElement
@@ -73,6 +87,8 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
         Выберите булки
       </div>
     )}
+
+    {/* Блок с общей стоимостью и кнопкой оформления заказа */}
     <div className={`${styles.total} mt-10 mr-4`}>
       <div className={`${styles.cost} mr-10`}>
         <p className={`text ${styles.text} mr-2`}>{price}</p>
@@ -87,12 +103,14 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
       />
     </div>
 
+    {/* Модальное окно загрузки при оформлении заказа */}
     {orderRequest && (
       <Modal onClose={closeOrderModal} title={'Оформляем заказ...'}>
         <Preloader />
       </Modal>
     )}
 
+    {/* Модальное окно с деталями заказа */}
     {orderModalData && (
       <Modal
         onClose={closeOrderModal}
